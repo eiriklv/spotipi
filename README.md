@@ -1,5 +1,7 @@
-SpotiPi - Cast Spotify to your Raspberry Pi via the browser!
-============================================================
+SpotiPi
+=======
+
+### Cast Spotify to your Raspberry Pi via the browser!
 
 #### Built with:
 * todo
