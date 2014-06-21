@@ -5,7 +5,7 @@ var Spotify = require('spotify-web');
 var lame = require('lame');
 var Speaker = require('speaker');
 
-// The radio player
+// The spotify player
 function Player (source, username, password) {
     this.source = source;
     this.username = username;
