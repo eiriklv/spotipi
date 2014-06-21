@@ -5,7 +5,9 @@ function Source (list) {
 
 // fetch a song
 Source.prototype.fetch = function (callback) {
-    callback(null, this.list.shift());
+    process.nextTick(function () {
+        callback(null, this.list.shift());
+    }.bind(this));
 };
 
 // add a song

@@ -31,3 +31,4 @@ var player = new Player(source, username, password);
 
 // start player
 player.next();
+debug('started spotiPi!');
