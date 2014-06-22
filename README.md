@@ -1,8 +1,6 @@
 SpotiPi
 =========================
 
-![spotipi](http://s29.postimg.org/osrdfy24n/preview.png "SpotiPi")
-
 Landing                                           |  Queue
 :------------------------------------------------:|:-------------------------------------------------:
 ![](http://s4.postimg.org/t626v49vh/landing.png)  |  ![](http://s24.postimg.org/ip633dc4l/queue.png)
