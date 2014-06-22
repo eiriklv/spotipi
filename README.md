@@ -90,9 +90,11 @@ Landing                                           |  Queue
 
 #### Run the application:
 * set environment variables
-* `gulp`
+* run `gulp` from the `/spotipi` directory
 * (create a shellscript with the above for convenience if you want)
+* connect the audio to your stereo
 * navigate your browser to `http://ip-of-your-raspberry-pi:3000` (or whatever port you chose for `PORT`)
+* everyone with access to the web interface can now add songs to the queue! :)
 
 #### TODO
 * create an upstart-script that runs the server when you boot the pi
