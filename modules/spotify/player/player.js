@@ -50,6 +50,18 @@ Player.prototype.play = function (song) {
                     this.queue.update(song, function (err, product) {
                         this.next();
                     }.bind(this));
+                }.bind(this))
+                .on('error', function (err) {
+                    debug(err);
+
+                    // if the song is not available, just skip it and move on
+                    spotify.disconnect();
+                    this.current = null;
+
+                    // update queueitem to playing: false and queue: false
+                    this.queue.update(song, function (err, product) {
+                        this.next();
+                    }.bind(this));
                 }.bind(this));
 
         }.bind(this));
