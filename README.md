@@ -1,7 +1,7 @@
 SpotiPi
 =========================
 
-![spotipi](http://s28.postimg.org/nkcjsyrqj/desktop.png)
+![spotipi](http://s30.postimg.org/vr9i0v01d/desktop.png)
 
 Landing                                           |  Queue
 :------------------------------------------------:|:-------------------------------------------------:
