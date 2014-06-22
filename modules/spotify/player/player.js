@@ -36,6 +36,19 @@ Player.prototype.play = function (song) {
 
             // attach the mp3 stream to the context (to be able to skip)
             this.current = track.play();
+
+            this.current.on('error', function (err) {
+                debug(err);
+
+                // if the song is not available, just skip it and move on
+                spotify.disconnect();
+                this.current = null;
+
+                // update queueitem to playing: false and queue: false
+                this.queue.update(song, function (err, product) {
+                    this.next();
+                }.bind(this));
+            }.bind(this));
                 
             // decode and play the mp3 stream
             this.current

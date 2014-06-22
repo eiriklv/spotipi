@@ -2,7 +2,6 @@ var debug = require('debug')('spotipi:sockets:global');
 var util = require('util');
 
 exports = module.exports = function (io, services, ipc) {
-    console.log('--derp');
     io.sockets.on('connection', function (socket) {
         debug('global socket connected');
 
