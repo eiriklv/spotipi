@@ -90,7 +90,8 @@ Landing                                           |  Queue
 
 #### Run the application:
 * set environment variables
-* run `gulp` from the `/spotipi` directory
+* run `gulp build` from the `/spotipi` directory
+* run `node app` from the `/spotipi` directory
 * (create a shellscript with the above for convenience if you want)
 * connect the audio to your stereo
 * navigate your browser to `http://ip-of-your-raspberry-pi:3000` (or whatever port you chose for `PORT`)
