@@ -31,7 +31,7 @@ Landing                                           |  Queue
 * wifi dongle supported by raspbian
 
 #### Preparing the raspberry pi:
-* **install raspbian by using NOOBS (guide)**
+* **install raspbian by using NOOBS - [guide](http://www.raspberrypi.org/help/noobs-setup/)**
 * **install needed packages for the process**
  * `sudo apt-get update`
  * `sudo apt-get upgrade`
