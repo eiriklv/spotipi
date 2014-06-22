@@ -75,7 +75,7 @@ Landing                                           |  Queue
 #### Installing the software for SpotiPi:
 * `git clone git@github.com:eiriklv/spotipi.git`
 * `cd spotipi`
-* `npm install -g gulp`
+* `sudo npm install -g gulp`
 * `npm install` - this might take a while, so grab a drink!
 
 #### Environment variables
