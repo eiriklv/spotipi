@@ -77,6 +77,7 @@ Landing                                           |  Queue
 * `cd spotipi`
 * `sudo npm install -g gulp`
 * `npm install` - this might take a while, so grab a drink!
+* if you have any issues with npm, try `npm cache clean` and try again
 
 #### Environment variables
 * `PORT` - Port exposed by this component.
