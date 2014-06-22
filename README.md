@@ -31,6 +31,7 @@ Landing                                           |  Queue
 #### Hardware requirements:
 * raspberry pi model b (256mb or 512mb ram)
 * wifi dongle supported by raspbian
+* (it also runs on any "regular" computer - but that's not as fun!)
 
 #### Preparing the raspberry pi:
 * **install raspbian by using NOOBS - [guide](http://www.raspberrypi.org/help/noobs-setup/)**
@@ -75,7 +76,7 @@ Landing                                           |  Queue
 * `git clone git@github.com:eiriklv/spotipi.git`
 * `cd spotipi`
 * `npm install -g gulp`
-* `npm install`
+* `npm install` - this might take a while, so grab a drink!
 
 #### Environment variables
 * `PORT` - Port exposed by this component.
