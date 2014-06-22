@@ -52,10 +52,10 @@ Landing                                           |  Queue
   * `sudo mkswap /swapfile1`
   * `sudo chmod 0600 /swapfile1`
   * `sudo swapon /swapfile1`
- * **fetch repos needed for install**
+  * **fetch repos needed for install**
   * `git clone git@github.com:brice-morin/ArduPi.git`
   * `git clone git@github.com:RickP/mongopi.git`
- * **install with following commands**
+  * **install with the following commands**
   * `sudo adduser --firstuid 100 --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb`
   * `sudo cp -R mongodb-rpi/mongo /opt`
   * `sudo chmod +x /opt/mongo/bin/*`
