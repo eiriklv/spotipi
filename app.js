@@ -9,16 +9,17 @@ process.on('uncaughtException', function (err) {
     process.exit(1);
 });
 
-// spotify credentials
+// credentials
 var username = process.env.SPOTIFY_USERNAME;
 var password = process.env.SPOTIFY_PASSWORD;
 
-// application modules
-var Player = require('./player');
-var Source = require('./source');
+// source modules
+var Source = require('./modules/source');
 
 // source instance
 var source = new Source([
+    'spotify:track:0mRvfUagptzsxT0fLzemrj',
+    'spotify:track:3rTnGUeDrnZV22DvRuUuXr',
     'spotify:track:3Uvx1TO0Kg5HgGPk58lHXv',
     'spotify:track:5Fds0TERWBkWRktc0z3cZM',
     'spotify:track:3iKmdCDZK4XmqxIA9fVVGs',
@@ -26,9 +27,5 @@ var source = new Source([
     'spotify:track:3xjlv84tqN87paMVHCoNPb'
 ]);
 
-// player instance
-var player = new Player(source, username, password);
-
-// start player
-player.next();
-debug('started spotiPi!');
+// spotify player module
+require('./modules/spotify')(source, username, password);
