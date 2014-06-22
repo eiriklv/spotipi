@@ -1,0 +1,18 @@
+{{#each this}}
+    <li class="media well {{#if this.playing}}playing{{/if}}">
+        <a class="pull-left" href="#">
+            <img class="media-object" alt="{{this.song}}" src="{{this.image.small}}" style="width: 64px; height: 64px;">
+        </a>
+
+        {{#if this.playing}}
+            <div class="pull-right">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        {{/if}}
+
+        <div class="media-body">
+            <h4 class="media-heading">{{this.song}}</h4>
+            <p>{{this.artist}}</p>
+        </div>
+    </li>
+{{/each}}

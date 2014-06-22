@@ -1,13 +1,14 @@
 // dependencies
 var debug = require('debug')('spotiPi:player');
 var util = require('util');
-var Spotify = require('spotify-web');
 var lame = require('lame');
 var Speaker = require('speaker');
 
 // The spotify player
-function Player (source, username, password) {
-    this.source = source;
+function Player (Spotify, queue, username, password, ipc) {
+    this.Spotify = Spotify;
+    this.ipc = ipc;
+    this.queue = queue;
     this.username = username;
     this.password = password;
     this.current = null;
@@ -16,7 +17,7 @@ function Player (source, username, password) {
 // play the current track
 Player.prototype.play = function (song) {
     // initiate the Spotify session
-    Spotify.login(this.username, this.password, function (err, spotify) {
+    this.Spotify.login(this.username, this.password, function (err, spotify) {
         if (err) {
             debug(util.inspect(err));
             return this.next();
@@ -30,8 +31,8 @@ Player.prototype.play = function (song) {
                 return this.next();
             }
 
-            // print / handle metadata
-            this.publish(track);
+            // print / handle metadata (and set song as playing)
+            this.publish(track, song);
 
             // attach the mp3 stream to the context (to be able to skip)
             this.current = track.play();
@@ -44,7 +45,11 @@ Player.prototype.play = function (song) {
                     debug('finished playing song');
                     spotify.disconnect();
                     this.current = null;
-                    this.next();
+
+                    // update queueitem to playing: false and queue: false
+                    this.queue.update(song, function (err, product) {
+                        this.next();
+                    }.bind(this));
                 }.bind(this));
 
         }.bind(this));
@@ -58,17 +63,22 @@ Player.prototype.skip = function () {
 };
 
 // publish meta data
-Player.prototype.publish = function (track) {
+Player.prototype.publish = function (track, song) {
+    // update db with playing: true
+
     debug('Playing: %s - %s', track.artist[0].name, track.name);
     debug(util.inspect(track, { colors: true }));
 };
 
 // play next song in queue (this is the initial method)
 Player.prototype.next = function () {
-    this.source.fetch(function (err, song) {
-        // if there is a source error try again later
+    this.queue.fetch(function (err, song) {
+        // send update to user via socket.io
+        this.ipc.emit('update');
+
+        // if there is a queue error try again later
         if (err) {
-            debug('error when fetching next song from source - trying again in 10s');
+            debug('error when fetching next song from queue - trying again in 10s');
             setTimeout(this.next.bind(this), 10000);
             return;
         }
@@ -81,7 +91,7 @@ Player.prototype.next = function () {
         }
 
         // check if the uri provided is of the type "track"
-        if (Spotify.uriType(song) != 'track') {
+        if (this.Spotify.uriType(song.uri) != 'track') {
             debug('not a valid spotify "track" uri');
             setTimeout(this.next.bind(this), 2000);
             return;
@@ -89,7 +99,7 @@ Player.prototype.next = function () {
 
         // play song
         debug('found next song in queue..');
-        this.play(song);
+        this.play(song.uri);
     }.bind(this));
 };
 
