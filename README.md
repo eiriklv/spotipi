@@ -97,6 +97,7 @@ Landing                                           |  Queue
 * everyone with access to the web interface can now add songs to the queue! :)
 
 #### TODO
+* create a pre-installed image that can be cloned to your SD-card (no install fuss!)
 * create an upstart-script that runs the server when you boot the pi
 * be able to add playlists with a single uri
 * add skipping
