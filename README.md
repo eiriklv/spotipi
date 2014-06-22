@@ -31,28 +31,28 @@ Landing                                           |  Queue
 * wifi dongle supported by raspbian
 
 #### Preparing the raspberry pi:
-* install raspbian by using NOOBS (guide)
-* install needed packages for the process
+* **install raspbian by using NOOBS (guide)**
+* **install needed packages for the process**
  * `sudo apt-get update`
  * `sudo apt-get upgrade`
  * `sudo apt-get install build-essential`
  * `sudo apt-get install libasound2`
  * `sudo apt-get install mpg123`
-* install nodejs
+* **install nodejs**
  * `sudo wget http://node-arm.herokuapp.com/node_latest_armhf.deb`
  * `sudo dpkg -i node_latest_armhf.deb`
-* install redis
+* **install redis**
  * `sudo apt-get install redis-server`
-* install mongodb
+* **install mongodb**
  * first set up a swapdisk if you are using the 256mb version
   * `sudo dd if=/dev/zero of=/swapfile1 bs=1024 count=524288`
   * `sudo mkswap /swapfile1`
   * `sudo chmod 0600 /swapfile1`
   * `sudo swapon /swapfile1`
- * fetch repos needed for install
+ * **fetch repos needed for install**
   * `git clone git@github.com:brice-morin/ArduPi.git`
   * `git clone git@github.com:RickP/mongopi.git`
- * install with following commands
+ * **install with following commands**
   * `sudo adduser --firstuid 100 --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb`
   * `sudo cp -R mongodb-rpi/mongo /opt`
   * `sudo chmod +x /opt/mongo/bin/*`
