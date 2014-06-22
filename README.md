@@ -99,6 +99,8 @@ Landing                                           |  Queue
 #### TODO
 * create a pre-installed image that can be cloned to your SD-card (no install fuss!)
 * create an upstart-script that runs the server when you boot the pi
+* be able to enter artist and track directly
+* be able to search for tracks
 * be able to add playlists with a single uri
 * add skipping
 * improve the frontend design

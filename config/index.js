@@ -60,7 +60,7 @@ var config = module.exports = convict({
         mongo: {
             url: {
                 doc: 'MongoDB url to connect to (including db reference)',
-                default: 'mongodb://localhost/express-passport-app',
+                default: 'mongodb://localhost/spotipi',
                 env: 'MONGO_URL'
             }
         },
