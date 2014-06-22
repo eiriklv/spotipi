@@ -93,3 +93,9 @@ Landing                                           |  Queue
 * `gulp`
 * (create a shellscript with the above for convenience if you want)
 * navigate your browser to `http://ip-of-your-raspberry-pi:3000` (or whatever port you chose for `PORT`)
+
+#### TODO
+* create an upstart-script that runs the server when you boot the pi
+* be able to add playlists with a single uri
+* add skipping
+* improve the frontend design
