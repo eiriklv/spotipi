@@ -37,17 +37,10 @@ Player.prototype.play = function (song) {
             // attach the mp3 stream to the context (to be able to skip)
             this.current = track.play();
 
+            // handle error on mp3 stream
             this.current.on('error', function (err) {
                 debug(err);
-
-                // if the song is not available, just skip it and move on
-                spotify.disconnect();
-                this.current = null;
-
-                // update queueitem to playing: false and queue: false
-                this.queue.update(song, function (err, product) {
-                    this.next();
-                }.bind(this));
+                this.handlePlayEnd.call(this, song, spotify);
             }.bind(this));
                 
             // decode and play the mp3 stream
@@ -56,28 +49,26 @@ Player.prototype.play = function (song) {
                 .pipe(new Speaker())
                 .on('finish', function () {
                     debug('finished playing song');
-                    spotify.disconnect();
-                    this.current = null;
-
-                    // update queueitem to playing: false and queue: false
-                    this.queue.update(song, function (err, product) {
-                        this.next();
-                    }.bind(this));
+                    this.handlePlayEnd.call(this, song, spotify);
                 }.bind(this))
                 .on('error', function (err) {
                     debug(err);
-
-                    // if the song is not available, just skip it and move on
-                    spotify.disconnect();
-                    this.current = null;
-
-                    // update queueitem to playing: false and queue: false
-                    this.queue.update(song, function (err, product) {
-                        this.next();
-                    }.bind(this));
+                    this.handlePlayEnd.call(this, song, spotify);
                 }.bind(this));
 
         }.bind(this));
+    }.bind(this));
+};
+
+// handle end of play (either success or error)
+Player.prototype.handlePlayEnd = function (song, spotify) {
+    // if the song is not available, just skip it and move on
+    spotify.disconnect();
+    this.current = null;
+
+    // update queueitem to playing: false and queue: false
+    this.queue.update(song, function (err, product) {
+        this.next();
     }.bind(this));
 };
 
@@ -90,7 +81,6 @@ Player.prototype.skip = function () {
 // publish meta data
 Player.prototype.publish = function (track, song) {
     // update db with playing: true
-
     debug('Playing: %s - %s', track.artist[0].name, track.name);
     debug(util.inspect(track, { colors: true }));
 };
