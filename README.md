@@ -86,6 +86,10 @@ Landing                                           |  Queue
 * `npm install` - this might take a while, so grab a drink!
 * if you have any issues with npm, try `npm cache clean` and try again
 
+#### Spotify Account:
+* you need a free Spotify account to be able to use the software
+* (Spotify is great, so please pay for Spotify Premium to support them!)
+
 #### Environment variables
 * `PORT` - Port exposed by this component.
  * example: `3000`
