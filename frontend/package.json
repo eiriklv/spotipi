@@ -1,0 +1,60 @@
+{
+    "name": "spotipi-frontend",
+    "main": "app.js",
+    "engines": {
+        "node": "0.10.x"
+    },
+    "version": "0.2.0",
+    "description": "SpotiPi Frontend Application",
+    "dependencies": {
+        "express": "~4.4.3",
+        "morgan": "~1.1.1",
+        "body-parser": "~1.2.2",
+        "cookie-parser": "~1.1.0",
+        "connect-redis": "~2.0.0",
+        "express-session": "~1.2.1",
+        "serve-favicon": "~2.0.0",
+        "errorhandler": "~1.0.1",
+        "method-override": "~1.0.2",
+        "hbs": "~2.6.0",
+        "colors": "~0.6.2",
+        "async": "~0.9.0",
+        "convict": "~0.4.2",
+        "validator": "~3.12.0",
+        "superagent": "^0.18.0",
+        "mongoose": "~3.8.12",
+        "stylus": "~0.46.3",
+        "spotify-web": "git+ssh://git@github.com:eiriklv/node-spotify-web.git",
+        "debug": "~1.0.2",
+        "socket.io": "~0.9.17",
+        "socket.io-client": "~0.9.17",
+        "redis": "~0.10.3"
+    },
+    "devDependencies": {
+        "browserify": "~4.1.6",
+        "vinyl-source-stream": "~0.1.1",
+        "gulp": "~3.6.2",
+        "gulp-stylus": "~1.0.2",
+        "gulp-notify": "~1.3.1",
+        "gulp-nodemon": "~1.0.3",
+        "gulp-mocha": "~0.4.1",
+        "nib": "~1.0.2",
+        "hbsfy": "~1.3.2",
+        "envify": "~1.2.1",
+        "mocha": "~1.20.1",
+        "chai": "~1.9.1",
+        "sinon-chai": "~2.5.0"
+    },
+    "browserify": {
+        "transform": [
+            "hbsfy",
+            "envify"
+        ]
+    },
+    "scripts": {
+        "test": "node_modules/.bin/mocha -R spec",
+        "develop": "sh dev.sh"
+    },
+    "author": "Eirik Vullum <eirik@evconsult.no>",
+    "license": "MIT"
+}
