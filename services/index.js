@@ -1,5 +1,5 @@
-exports = module.exports = function (models, helpers) {
+exports = module.exports = function (models, spotify, helpers) {
     return {
-        queue: require('./queue')(models.QueueItem, helpers)
+        queue: require('./queue')(models.QueueItem, spotify, helpers)
     };
 };
