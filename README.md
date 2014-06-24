@@ -96,7 +96,7 @@ Landing                                           |  Queue
 * `SPOTIFY_PASSWORD` - Your Spotify password (required)
  * example: `keyboardcat1234`
 
- #### Run the frontend application:
+#### Run the frontend application:
 * run `gulp build` from the `spotipi/frontend` directory
 * run `node app` from the `spotipi/frontend` directory
 * (create a shellscript with the above for convenience if you want)
