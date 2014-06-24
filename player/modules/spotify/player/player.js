@@ -40,7 +40,7 @@ Player.prototype.play = function (song) {
             // handle error on mp3 stream
             this.current.on('error', function (err) {
                 debug(err);
-                this.handlePlayEnd.call(this, song, spotify);
+                this.handlePlayEnd.call(this, err, song, spotify);
             }.bind(this));
                 
             // decode and play the mp3 stream
@@ -49,11 +49,11 @@ Player.prototype.play = function (song) {
                 .pipe(new Speaker())
                 .on('finish', function () {
                     debug('finished playing song');
-                    this.handlePlayEnd.call(this, song, spotify);
+                    this.handlePlayEnd.call(this, null, song, spotify);
                 }.bind(this))
                 .on('error', function (err) {
                     debug(err);
-                    this.handlePlayEnd.call(this, song, spotify);
+                    this.handlePlayEnd.call(this, err, song, spotify);
                 }.bind(this));
 
         }.bind(this));
@@ -61,13 +61,14 @@ Player.prototype.play = function (song) {
 };
 
 // handle end of play (either success or error)
-Player.prototype.handlePlayEnd = function (song, spotify) {
+Player.prototype.handlePlayEnd = function (err, song, spotify) {
     // if the song is not available, just skip it and move on
     spotify.disconnect();
     this.current = null;
 
     // update queueitem to playing: false and queue: false
-    this.queue.update(song, function (err, product) {
+    this.queue.update(song, function (error, product) {
+        if (err) return setTimeout(this.next.bind(this), 5000);
         this.next();
     }.bind(this));
 };
