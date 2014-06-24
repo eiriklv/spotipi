@@ -6,12 +6,12 @@ var colors = require('colors');
 // use redis to subscribe and publish here
 exports = module.exports = function (rpc, ipc) {
     rpc.subscriber.on('subscribe', function (channel, count){
-        debug('subscribe'.yellow + ' channel: ' + channel.toString().blue + ' count: ' + count, 'info');
+        debug('subscribe'.yellow + ' channel: ' + channel.toString().blue + ' count: ' + count);
     });
 
     // what to do when getting any messages on a channel that has a subscription
     rpc.subscriber.on('message', function (channel, message){
-        debug('message'.magenta + ' channel: ' + channel + ' message: ' + util.inspect(message), 'info');
+        debug('message'.magenta + ' channel: ' + channel + ' message: ' + util.inspect(message));
 
         var data;
         // try to parse the data, as it should be valid JSON. if not, something is wrong..

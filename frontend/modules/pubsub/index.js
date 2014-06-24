@@ -7,24 +7,26 @@ var colors = require('colors');
 exports = module.exports = function (rpc, ipc) {
     // what to do when a subscription is made
     rpc.subscriber.on('subscribe', function (channel, count){
-        debug('subscribe'.yellow + ' channel: ' + channel.toString().blue + ' count: ' + count, 'info');
+        debug('subscribe'.yellow + ' channel: ' + channel.toString().blue + ' count: ' + count);
     });
 
     // what to do when getting any messages on a channel that has a subscription
     rpc.subscriber.on('message', function (channel, message){
-        debug('message'.magenta + ' channel: ' + channel + ' message: ' + util.inspect(message), 'info');
+        debug('message'.magenta + ' channel: ' + channel + ' message: ' + util.inspect(message));
 
         var data;
         // try to parse the data, as it should be valid JSON. if not, something is wrong..
-        try{
+        try {
             data = JSON.parse(message);
         }
-        catch(e){
-            debug('could not parse to JSON, aborting send - error: ' + util.inspect(e), 'error');
+        catch (e) {
+            debug('could not parse to JSON, aborting send - error: ' + util.inspect(e));
         }
 
+        data = data || {};
+
         // if data is parsed successfully, emit data to sockets
-        data ? ipc.emit('update', data) : debug.log('data not defined - erronous input: ' + message, 'error');
+        data ? ipc.emit('update', data) : debug('data not defined - erronous input: ' + message);
     });
 
     // publish (stringify the data and send it via redis) (since this will only be run once, we don't need to name the callback function or remove it)
