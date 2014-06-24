@@ -72,10 +72,17 @@ Landing                                           |  Queue
   * `PATH=$PATH:/opt/mongo/bin`
   * `export PATH`
 
-#### Installing the software for SpotiPi:
+#### Cloning the software to your pi:
 * `git clone git@github.com:eiriklv/spotipi.git`
-* `cd spotipi`
+
+#### Installing the software for SpotiPi-Frontend:
+* `cd spotipi/frontend`
 * `sudo npm install -g gulp`
+* `npm install` - this might take a while, so grab a drink!
+* if you have any issues with npm, try `npm cache clean` and try again
+
+#### Installing the software for SpotiPi-Player:
+* `cd spotipi/player`
 * `npm install` - this might take a while, so grab a drink!
 * if you have any issues with npm, try `npm cache clean` and try again
 
@@ -89,14 +96,19 @@ Landing                                           |  Queue
 * `SPOTIFY_PASSWORD` - Your Spotify password (required)
  * example: `keyboardcat1234`
 
-#### Run the application:
-* set environment variables
-* run `gulp build` from the `/spotipi` directory
-* run `node app` from the `/spotipi` directory
+ #### Run the frontend application:
+* run `gulp build` from the `spotipi/frontend` directory
+* run `node app` from the `spotipi/frontend` directory
 * (create a shellscript with the above for convenience if you want)
-* connect the audio to your stereo
 * navigate your browser to `http://ip-of-your-raspberry-pi:3000` (or whatever port you chose for `PORT`)
 * everyone with access to the web interface can now add songs to the queue! :)
+
+#### Run the player:
+* set environment variables
+* run `node app` from the `spotipi/player` directory
+* (create a shellscript with the above for convenience if you want)
+* connect the audio to your stereo
+* enjoy the music! :)
 
 #### TODO
 * create a pre-installed image that can be cloned to your SD-card (no install fuss!)
