@@ -1,6 +1,14 @@
 SpotiPi
 =========================
 
+#### Introduction:
+* Have you ever wanted to let other people add music to your queue on spotify?
+* Or would you like to control your queue from a remote location?
+* Or just create your own DIY version of the chromecast that plays music?
+Then SpotiPi is for you!
+
+With SpotiPi you can set up a computer of any kind (that runs node) to work as the receiver/streamer, with either a bundled web interface for controlling it, or just outsource the web interface to the cloud. Just make sure you connect both the player and web interface to the same redis and mongodb. Now anyone you want can have access to your queue and add music. Great for parties, where you want your guests to add music to the queue from their own device. Enjoy!
+
 ![spotipi](http://s30.postimg.org/vr9i0v01d/desktop.png)
 
 Landing                                           |  Queue
