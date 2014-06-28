@@ -40,7 +40,7 @@ Landing                                           |  Queue
 #### Hardware requirements:
 * raspberry pi model b (256mb or 512mb ram)
 * wifi dongle supported by raspbian
-* (it also runs on any "regular" computer - but that's not as fun!)
+* it also runs on any "regular" computer - but that's not as fun!
 
 #### Preparing the raspberry pi:
 * **install raspbian by using NOOBS - [guide](http://www.raspberrypi.org/help/noobs-setup/)**
@@ -62,8 +62,8 @@ Landing                                           |  Queue
   * `sudo chmod 0600 /swapfile1`
   * `sudo swapon /swapfile1`
   * **fetch repos needed for install**
-  * `git clone git@github.com:brice-morin/ArduPi.git`
-  * `git clone git@github.com:RickP/mongopi.git`
+  * `git clone git@github.com:eiriklv/ArduPi.git`
+  * `git clone git@github.com:eiriklv/mongopi.git`
   * **install with the following commands**
   * `sudo adduser --firstuid 100 --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb`
   * `sudo cp -R mongodb-rpi/mongo /opt`
