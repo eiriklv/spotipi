@@ -12,7 +12,7 @@ var methodOverride = require('method-override');
 var errorHandler = require('errorhandler');
 
 // configure express
-module.exports.configureExpress = function (options, app, config) {
+module.exports.configureExpress = function(options, app, config) {
     // set view engine and parsers
     app.set('views', options.dir + '/views');
     app.set('view engine', 'html');
@@ -27,33 +27,37 @@ module.exports.configureExpress = function (options, app, config) {
     app.use(options.cookieParser());
     app.use(bodyParser());
     app.use(methodOverride());
-    app.use(options.session({ secret: config.get('server.secret'), store: options.store, key: config.get('session.key') }));
+    app.use(options.session({
+        secret: config.get('server.secret'),
+        store: options.store,
+        key: config.get('session.key')
+    }));
     app.use(favicon(options.dir + '/client/public/favicon.ico'));
 
     // express dev config
     if ('development' == config.get('env')) {
-       app.use(errorHandler());
+        app.use(errorHandler());
     }
 };
 
 // register handlebars partials
-module.exports.registerPartials = function (path, handlebars) {
+module.exports.registerPartials = function(path, handlebars) {
     var partials = path;
-    fs.readdirSync(partials).forEach(function (folder) {
+    fs.readdirSync(partials).forEach(function(folder) {
         var extension = folder.split('.')[1];
         if (extension != undefined) return;
-        fs.readdirSync(partials + folder).forEach(function (file) {
+        fs.readdirSync(partials + folder).forEach(function(file) {
             var extension = file.split('.')[1];
-            if(extension != 'html') return;
+            if (extension != 'html') return;
             var source = fs.readFileSync(partials + folder + '/' + file, "utf8");
-            var partial = folder+'-'+file.split('.')[0];
+            var partial = folder + '-' + file.split('.')[0];
             handlebars.registerPartial(partial, source);
         });
     });
 };
 
 // register handlebars block helpers
-module.exports.registerHelpers = function (helpers, handlebars) {
+module.exports.registerHelpers = function(helpers, handlebars) {
     for (var helper in helpers) {
         if (helpers.hasOwnProperty(helper)) {
             handlebars.registerHelper(helper, helpers.helper);
@@ -63,18 +67,21 @@ module.exports.registerHelpers = function (helpers, handlebars) {
 };
 
 // redis pubsub
-module.exports.pubsub = function (redis, config){
+module.exports.pubsub = function(redis, config) {
     // init redis connections
     var subscriber, publisher;
     if ('production' == config.get('env')) {
         // running on heroku with rediscloud
         var redisURL = url.parse(config.get('database.redis.url'));
-        subscriber = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true}); // subscriber connection
-        publisher = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true}); // publisher connection
+        subscriber = redis.createClient(redisURL.port, redisURL.hostname, {
+            no_ready_check: true
+        }); // subscriber connection
+        publisher = redis.createClient(redisURL.port, redisURL.hostname, {
+            no_ready_check: true
+        }); // publisher connection
         if (redisURL.auth) subscriber.auth(redisURL.auth.split(":")[1]);
         if (redisURL.auth) publisher.auth(redisURL.auth.split(":")[1]);
-    }
-    else {
+    } else {
         // running in local dev (localhost:6379)
         subscriber = redis.createClient(); // subscriber connection
         publisher = redis.createClient(); // publisher connection
@@ -87,7 +94,7 @@ module.exports.pubsub = function (redis, config){
 };
 
 // create session store
-module.exports.sessions = function (SessionStore, config) {
+module.exports.sessions = function(SessionStore, config) {
     var authObject;
 
     if (config.get('database.redis.url')) {
@@ -102,21 +109,54 @@ module.exports.sessions = function (SessionStore, config) {
         };
 
         return new SessionStore(authObject);
-    }
-    else {
+    } else {
         var err = new Error('no redis url supplied - aborting');
-        throw(err);
+        throw (err);
     }
 };
 
 // connect to backend store (db)
-module.exports.db = function (db, config)  {
-    db.connect(config.get('database.mongo.url'));
+module.exports.db = function(mongoose, config) {
+    function connect() {
+        mongoose.connect(config.get('database.mongo.url'));
+    }
+
+    mongoose.connection.on('open', function(ref) {
+        debug('open connection to mongo server.');
+    });
+
+    mongoose.connection.on('connected', function(ref) {
+        debug('connected to mongo server.');
+    });
+
+    mongoose.connection.on('disconnected', function(ref) {
+        debug('disconnected from mongo server.');
+
+        debug('retrying connection in 2 seconds..');
+        setTimeout(function() {
+            connect();
+        }.bind(this), 2000);
+    });
+
+    mongoose.connection.on('close', function(ref) {
+        debug('closed connection to mongo server');
+    });
+
+    mongoose.connection.on('error', function(err) {
+        debug('error connection to mongo server!');
+        debug(err);
+    });
+
+    mongoose.connection.on('reconnect', function(ref) {
+        debug('reconnect to mongo server.');
+    });
+
+    connect();
 };
 
 // bind server to port
-module.exports.run = function (server, config) {
-    server.listen(config.get('server.port'), function () {
+module.exports.run = function(server, config) {
+    server.listen(config.get('server.port'), function() {
         debug('listening on port %d'.green, server.address().port);
     });
 };
